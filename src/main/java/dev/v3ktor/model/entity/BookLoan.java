@@ -28,6 +28,7 @@ public class BookLoan {
 
     public LocalDate getDate() { return date; }
 
+    //Métodos
 
     //Equals & Hashcode
     @Override
