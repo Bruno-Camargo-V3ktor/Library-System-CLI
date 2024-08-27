@@ -1,5 +1,7 @@
 package dev.v3ktor.model.entity;
 
+import dev.v3ktor.model.enums.LoanStatus;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -10,6 +12,7 @@ public class BookLoan {
     private Book book;
     private User user;
     private LocalDate date;
+    private LoanStatus status;
 
     //Construtores
     public BookLoan() {}
