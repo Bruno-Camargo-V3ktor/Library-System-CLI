@@ -34,7 +34,18 @@ public class User {
     public List<UserHoles> getHoles() { return holes; }
 
     //Métodos
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("");
 
+        sb.append("id=").append(id).append(";");
+        sb.append("name=").append(name).append(";");
+        sb.append("password=").append(password).append(";");
+        sb.append("holes=").append( holes.stream().map( Enum::name ).toList().toString() ).append(";");
+        sb.append('\n');
+
+        return sb.toString();
+    }
 
     //Equals & Hashcode
     @Override

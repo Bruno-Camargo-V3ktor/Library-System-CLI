@@ -29,7 +29,18 @@ public class Author {
     public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
 
     //Métodos
+    @Override
+    public String toString() {
 
+        final StringBuilder sb = new StringBuilder("");
+
+        sb.append("id=").append(id).append(";");;
+        sb.append("name='").append(name).append(";");
+        sb.append("birthDate=").append(birthDate).append(";");;
+        sb.append('\n');
+
+        return sb.toString();
+    }
 
     //Equals & Hashcode
     @Override

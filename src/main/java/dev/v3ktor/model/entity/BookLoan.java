@@ -16,10 +16,12 @@ public class BookLoan {
 
     //Construtores
     public BookLoan() {}
-    public BookLoan(Book book, User user, LocalDate date) {
+    public BookLoan(Integer id, Book book, User user, LocalDate date, LoanStatus status) {
+        this.id = id;
         this.book = book;
         this.user = user;
         this.date = date;
+        this.status = status;
     }
 
     //Getters & Setters
@@ -32,6 +34,19 @@ public class BookLoan {
     public LocalDate getDate() { return date; }
 
     //Métodos
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("");
+
+        sb.append("id=").append(id).append(";");
+        sb.append("book=").append( book.getId() ).append(";");
+        sb.append("user=").append( user.getId() ).append(";");
+        sb.append("date=").append( date ).append(";");
+        sb.append("status=").append( status.name() ).append(";");
+        sb.append('\n');
+
+        return sb.toString();
+    }
 
     //Equals & Hashcode
     @Override

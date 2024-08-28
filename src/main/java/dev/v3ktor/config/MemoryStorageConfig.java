@@ -60,11 +60,14 @@ public abstract class MemoryStorageConfig {
     private static void populationFile( Path path, List<?> objects ) throws IOException {
         if( objects == null ) return;
 
+        var strWrite = new StringBuilder("");
         objects.forEach( (object) ->
         {
-            try { Files.write( path, object.toString().getBytes("UTF-8") ); }
-            catch (IOException e) { throw new RuntimeException(e); }
+            strWrite.append( object.toString() );
         } );
+
+        try { Files.write( path, strWrite.toString().getBytes("UTF-8") ); }
+        catch (IOException e) { throw new RuntimeException(e); }
     }
 
 }
