@@ -45,7 +45,6 @@ public class User {
         sb.append(name).append(";");
         sb.append(password).append(";");
         sb.append( holesStr.substring(1, holesStr.length()-1) ).append(";");
-        sb.append('\n');
 
         return sb.toString();
     }

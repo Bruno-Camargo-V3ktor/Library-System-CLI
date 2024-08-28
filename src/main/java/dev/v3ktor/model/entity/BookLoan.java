@@ -43,7 +43,6 @@ public class BookLoan {
         sb.append( user.getId() ).append(";");
         sb.append( date ).append(";");
         sb.append( status.name() ).append(";");
-        sb.append('\n');
 
         return sb.toString();
     }

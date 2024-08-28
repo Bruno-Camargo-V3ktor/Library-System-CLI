@@ -55,7 +55,6 @@ public class Book {
         sb.append(updateDate).append(";");
         sb.append(isAvailable).append(";");
         sb.append(author.getId()).append(";");
-        sb.append("\n");
 
         return sb.toString();
     }

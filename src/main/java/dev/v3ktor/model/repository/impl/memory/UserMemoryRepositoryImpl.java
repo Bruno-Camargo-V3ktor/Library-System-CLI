@@ -5,9 +5,12 @@ import dev.v3ktor.model.entity.User;
 import dev.v3ktor.model.enums.UserHoles;
 import dev.v3ktor.model.repository.UserRepository;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,56 +25,63 @@ public class UserMemoryRepositoryImpl implements UserRepository {
     @Override
     public void save(User user)
     {
-        try {
-            String[] atr = Files.readAllLines(userFile).getLast().split(";");
-            user.setId( Integer.parseInt( atr[0] ) + 1  );
+        var list = findAll();
+        user.setId( list.isEmpty() ? 1 : list.getLast().getId() + 1 );
 
-            StringBuilder users = new StringBuilder( Files.readString(userFile) );
-            users.append(user.toString());
-
-            Files.write(userFile, users.toString().getBytes("UTF-8"));
-        }
+        try { Files.writeString(userFile, user.toString() + '\n', StandardOpenOption.APPEND); }
         catch (IOException e) { e.printStackTrace(); }
     }
 
     @Override
     public User findById(int id)
     {
-        List<String> lines = new ArrayList<>();
+       User user = null;
 
-        try { lines = Files.readAllLines(userFile); }
-        catch (IOException e) { e.printStackTrace(); }
+       try( BufferedReader reader = new BufferedReader( new FileReader(userFile.toFile())) )
+       {
+           var line = reader.readLine();
+           while ( line != null && user == null ) {
+               var u = conevertCSV(line);
+               user = ( u.getId() == id ? u : null );
+               line = reader.readLine();
+           }
+       }
+       catch (IOException e) { e.printStackTrace(); }
 
-        var userCSV = lines.stream().filter( (line) -> {
-
-            String[] atr = line.split(";");
-            return Objects.equals(atr[0], String.valueOf(id));
-
-        } ).findFirst();
-
-        if(userCSV.isEmpty()) return null;
-
-        return conevertCSV( userCSV.get() );
+       return user;
     }
 
     @Override
     public User findByUsername(String username)
     {
-        List<String> lines = new ArrayList<>();
+        User user = null;
 
-        try { lines = Files.readAllLines(userFile); }
+        try( BufferedReader reader = new BufferedReader( new FileReader(userFile.toFile())) )
+        {
+            var line = reader.readLine();
+            while ( line != null && user == null ) {
+                var u = conevertCSV(line);
+                user = ( u.getName().equals( username ) ? u : null );
+                line = reader.readLine();
+            }
+        }
         catch (IOException e) { e.printStackTrace(); }
 
-        var userCSV = lines.stream().filter( (line) -> {
+        return user;
+    }
 
-            String[] atr = line.split(";");
-            return Objects.equals(atr[1], username);
+    @Override
+    public List<User> findAll()
+    {
+        List<User> users = new ArrayList<>();
 
-        } ).findFirst();
+        try {
+            users = Files.readAllLines(userFile)
+                    .stream().map( this::conevertCSV ).toList();
+        }
+        catch (IOException e) { e.printStackTrace(); }
 
-        if(userCSV.isEmpty()) return null;
-
-        return conevertCSV( userCSV.get() );
+        return users;
     }
 
     @Override
@@ -83,11 +93,8 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         catch (IOException e) { e.printStackTrace(); }
 
         for (int i = 0; i < lines.size(); i++) {
-
-            String[] atr = lines.get(i).split(";");
-
-            if( Objects.equals(atr[0], String.valueOf(user.getId())) ){
-                lines.set(i, user.toString().replace("\n", ""));
+            if( conevertCSV( lines.get(i) ).getId() == user.getId() ) {
+                lines.set(i, user.toString());
                 break;
             }
         }
@@ -95,10 +102,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         var userString = new StringBuilder();
         lines.forEach( (line) -> { userString.append(line).append("\n"); });
 
-        try {
-            Files.write( userFile,
-                    userString.toString().getBytes("UTF-8") );
-        }
+        try { Files.writeString(userFile, userString.toString()); }
         catch (IOException e) { e.printStackTrace(); }
 
         return user;
@@ -113,10 +117,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         catch (IOException e) { e.printStackTrace(); }
 
         for (int i = 0; i < lines.size(); i++) {
-
-            String[] atr = lines.get(i).split(";");
-
-            if( Objects.equals(atr[0], String.valueOf(user.getId())) ){
+            if( conevertCSV( lines.get(i) ).equals( user ) ) {
                 lines.remove(i);
                 break;
             }
@@ -125,10 +126,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         var userString = new StringBuilder();
         lines.forEach( (line) -> { userString.append(line).append("\n"); });
 
-        try {
-            Files.write( userFile,
-                    userString.toString().getBytes("UTF-8") );
-        }
+        try { Files.writeString(userFile, userString.toString()); }
         catch (IOException e) { e.printStackTrace(); }
     }
 
