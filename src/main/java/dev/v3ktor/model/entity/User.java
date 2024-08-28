@@ -25,6 +25,7 @@ public class User {
 
     //Getters & Setters
     public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -38,10 +39,12 @@ public class User {
     public String toString() {
         final StringBuilder sb = new StringBuilder("");
 
+        var holesStr = holes.stream().map( Enum::name ).toList().toString();
+
         sb.append(id).append(";");
         sb.append(name).append(";");
         sb.append(password).append(";");
-        sb.append( holes.stream().map( Enum::name ).toList().toString() ).append(";");
+        sb.append( holesStr.substring(1, holesStr.length()-1) ).append(";");
         sb.append('\n');
 
         return sb.toString();
