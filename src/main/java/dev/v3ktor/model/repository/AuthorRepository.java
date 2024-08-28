@@ -1,8 +1,7 @@
 package dev.v3ktor.model.repository;
 
 import dev.v3ktor.model.entity.Author;
-
-import java.awt.print.Book;
+import dev.v3ktor.model.entity.Book;
 import java.util.List;
 
 public interface AuthorRepository {
@@ -20,6 +19,6 @@ public interface AuthorRepository {
     Author update(Author author);
 
     // D -> Delete
-    Author delete(Author author);
+    void delete(Author author);
 
 }
