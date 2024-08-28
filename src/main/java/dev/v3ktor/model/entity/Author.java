@@ -34,9 +34,9 @@ public class Author {
 
         final StringBuilder sb = new StringBuilder("");
 
-        sb.append("id=").append(id).append(";");;
-        sb.append("name='").append(name).append(";");
-        sb.append("birthDate=").append(birthDate).append(";");;
+        sb.append(id).append(";");;
+        sb.append(name).append(";");
+        sb.append(birthDate).append(";");;
         sb.append('\n');
 
         return sb.toString();

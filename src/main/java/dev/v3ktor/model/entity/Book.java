@@ -49,12 +49,12 @@ public class Book {
     public String toString() {
         final StringBuilder sb = new StringBuilder("");
 
-        sb.append("id=").append(id).append(";");
-        sb.append("title=").append(title).append(";");
-        sb.append("creationDate=").append(creationDate).append(";");
-        sb.append("updateDate=").append(updateDate).append(";");
-        sb.append("isAvailable=").append(isAvailable).append(";");
-        sb.append("author=").append(author.getId()).append(";");
+        sb.append(id).append(";");
+        sb.append(title).append(";");
+        sb.append(creationDate).append(";");
+        sb.append(updateDate).append(";");
+        sb.append(isAvailable).append(";");
+        sb.append(author.getId()).append(";");
         sb.append("\n");
 
         return sb.toString();

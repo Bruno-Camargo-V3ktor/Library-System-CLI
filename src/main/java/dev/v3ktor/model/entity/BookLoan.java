@@ -38,11 +38,11 @@ public class BookLoan {
     public String toString() {
         final StringBuilder sb = new StringBuilder("");
 
-        sb.append("id=").append(id).append(";");
-        sb.append("book=").append( book.getId() ).append(";");
-        sb.append("user=").append( user.getId() ).append(";");
-        sb.append("date=").append( date ).append(";");
-        sb.append("status=").append( status.name() ).append(";");
+        sb.append(id).append(";");
+        sb.append( book.getId() ).append(";");
+        sb.append( user.getId() ).append(";");
+        sb.append( date ).append(";");
+        sb.append( status.name() ).append(";");
         sb.append('\n');
 
         return sb.toString();

@@ -38,10 +38,10 @@ public class User {
     public String toString() {
         final StringBuilder sb = new StringBuilder("");
 
-        sb.append("id=").append(id).append(";");
-        sb.append("name=").append(name).append(";");
-        sb.append("password=").append(password).append(";");
-        sb.append("holes=").append( holes.stream().map( Enum::name ).toList().toString() ).append(";");
+        sb.append(id).append(";");
+        sb.append(name).append(";");
+        sb.append(password).append(";");
+        sb.append( holes.stream().map( Enum::name ).toList().toString() ).append(";");
         sb.append('\n');
 
         return sb.toString();
