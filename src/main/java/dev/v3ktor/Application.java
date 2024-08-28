@@ -24,22 +24,5 @@ public class Application {
             e.printStackTrace();
         }
 
-        AuthorRepository authorRepository = new AuthorMemoryRepositoryImpl();
-
-        var author1 = new Author(1, "Machado de Assis", LocalDate.parse("1820-05-12"));
-        var author2 = new Author(2, "Bruno C.", LocalDate.parse("2006-02-28"));
-        var book1 = new Book(1, "Dom Casmurro", true, LocalDate.parse("2024-08-28"), LocalDate.parse("2024-08-28"), author1);
-
-        //authorRepository.save( author1 );
-        //authorRepository.save(author2);
-
-        //System.out.println( authorRepository.findByBook(book1) );
-        //authorRepository.update( new Author(2, "Bruno Camargo F.", LocalDate.parse("2006-02-28")) );
-
-        authorRepository.delete( new Author(3, "Bruno Camargo F.", LocalDate.parse("2006-02-28")) );
-
-        System.out.println( authorRepository.findByName("Assis") );
-        authorRepository.findAll().forEach(System.out::println);
-
     }
 }

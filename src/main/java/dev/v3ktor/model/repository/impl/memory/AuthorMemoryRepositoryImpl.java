@@ -26,7 +26,10 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
     @Override
     public void save(Author author)
     {
-        try{ Files.writeString(authorFile, author.toString(), StandardOpenOption.APPEND); }
+        var list = findAll();
+        author.setId( list.isEmpty() ? 1 :  list.getLast().getId() + 1);
+
+        try{ Files.writeString(authorFile, author.toString() + '\n', StandardOpenOption.APPEND); }
         catch (IOException e) { e.printStackTrace(); }
     }
 
