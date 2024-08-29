@@ -26,12 +26,16 @@ public class BookLoan {
 
     //Getters & Setters
     public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public Book getBook() { return book; }
 
     public User getUser() { return user; }
 
     public LocalDate getDate() { return date; }
+
+    public LoanStatus getStatus() { return status; }
+    public void setStatus(LoanStatus status) { this.status = status; }
 
     //Métodos
     @Override

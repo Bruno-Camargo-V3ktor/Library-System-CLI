@@ -18,7 +18,7 @@ public interface BookLoanRepository {
     List<BookLoan> findByStatus(String status);
 
     // U -> Update
-    BookLoan update(BookLoan bookLoan);
+    void update(BookLoan bookLoan);
 
     // D -> Delete
     void delete(BookLoan bookLoan);
