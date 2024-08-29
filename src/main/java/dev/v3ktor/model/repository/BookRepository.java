@@ -1,5 +1,6 @@
 package dev.v3ktor.model.repository;
 
+import dev.v3ktor.model.entity.Author;
 import dev.v3ktor.model.entity.Book;
 
 import java.time.LocalDate;
@@ -9,11 +10,10 @@ public interface BookRepository {
 
     // C -> Create
     void save(Book book);
-    void saveAll(List<Book> books);
 
     // R -> Read
     Book findById(int id);
-    Book findByAuthor(String author);
+    Book findByAuthor(Author author);
     List<Book> findByTitle(String title);
     List<Book> findAll();
 
