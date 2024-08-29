@@ -13,11 +13,10 @@ public interface BookRepository {
 
     // R -> Read
     Book findById(int id);
-    Book findByTitle(String title);
     Book findByAuthor(String author);
-    List<Book> findAllHigherDate(LocalDate date);
+    List<Book> findByTitle(String title);
     List<Book> findAll();
-    List<Book> findAllTitle(String title);
+
 
     // U -> Update
     void update(Book book);
