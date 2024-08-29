@@ -6,8 +6,10 @@ import dev.v3ktor.model.entity.Book;
 import dev.v3ktor.model.entity.User;
 import dev.v3ktor.model.enums.UserHoles;
 import dev.v3ktor.model.repository.AuthorRepository;
+import dev.v3ktor.model.repository.BookRepository;
 import dev.v3ktor.model.repository.UserRepository;
 import dev.v3ktor.model.repository.impl.memory.AuthorMemoryRepositoryImpl;
+import dev.v3ktor.model.repository.impl.memory.BookMemoryRepositoryImpl;
 import dev.v3ktor.model.repository.impl.memory.UserMemoryRepositoryImpl;
 
 import java.time.LocalDate;
