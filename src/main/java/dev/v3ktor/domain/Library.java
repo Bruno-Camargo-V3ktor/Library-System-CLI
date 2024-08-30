@@ -3,34 +3,38 @@ package dev.v3ktor.domain;
 import dev.v3ktor.model.entity.Author;
 import dev.v3ktor.model.entity.Book;
 import dev.v3ktor.model.entity.BookLoan;
+import dev.v3ktor.model.repository.AuthorRepository;
+import dev.v3ktor.model.repository.BookLoanRepository;
+import dev.v3ktor.model.repository.BookRepository;
+import dev.v3ktor.model.repository.UserRepository;
+import dev.v3ktor.service.AuthorService;
+import dev.v3ktor.service.BookService;
+import dev.v3ktor.service.LoanService;
+import dev.v3ktor.service.UserService;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class Library {
 
     //Atributos
-    private List<Book> books = new ArrayList<>();
-    private List<Author> authors = new ArrayList<>();
-    private List<BookLoan> loans = new ArrayList<>();
+    private final BookService bookService;
+    private final UserService userService;
+    private final AuthorService authorService;
+    private final LoanService loanService;
 
     //Construtores
-    public Library() {}
-    public Library(List<Book> books, List<Author> authors, List<BookLoan> loans) {
-        this.books = books;
-        this.authors = authors;
-        this.loans = loans;
+    public Library(BookRepository bookRepository, UserRepository userRepository, AuthorRepository authorRepository, BookLoanRepository bookLoanRepository) {
+        this.bookService = new BookService( bookRepository );
+        this.userService = new UserService( userRepository );
+        this.authorService = new AuthorService( authorRepository );
+        this.loanService = new LoanService( bookLoanRepository );
     }
 
-    //Getters & Setters
-    public List<Book> getBooks() { return books; }
-
-    public List<Author> getAuthors() { return authors; }
-
-    public List<BookLoan> getLoans() { return loans; }
+    //MÉTODOS
 
 
-    //Métodos
+
+
 
 
 }
