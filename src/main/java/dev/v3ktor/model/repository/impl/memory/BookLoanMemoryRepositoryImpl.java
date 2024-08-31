@@ -79,13 +79,13 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
     }
 
     @Override
-    public List<BookLoan> findByBook(Book book) {
+    public List<BookLoan> findByBookTitle(String title) {
         List<BookLoan> loans = new ArrayList<>();
 
         var list = findAll();
         for (int i = 0; i < loans.size(); i++) {
             var l = list.get(i);
-            if( l.getBook().equals(book) ) loans.add( l );
+            if( l.getBook().getTitle().contains( title ) ) loans.add( l );
         }
 
         return loans;
