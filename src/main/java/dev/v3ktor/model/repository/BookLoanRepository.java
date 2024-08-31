@@ -14,7 +14,7 @@ public interface BookLoanRepository {
     BookLoan findById(Integer id);
     List<BookLoan> findAll();
     List<BookLoan> findByUser(User user);
-    List<BookLoan> findByBook(Book book);
+    List<BookLoan> findByBookTitle(String title);
     List<BookLoan> findByStatus(String status);
 
     // U -> Update
