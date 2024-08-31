@@ -33,8 +33,29 @@ public class UserService {
 
     public void updateUser( User actualUser, User newUser )
     {
-        if( Objects.equals(actualUser.getId(), newUser.getId()) ) return;
+        if( !Objects.equals(actualUser.getId(), newUser.getId()) ) return;
         userRepository.update( newUser );
+    }
+
+    public void createUser( User actualUser, User newUser )
+    {
+        if( actualUser == null )
+        {
+            newUser.setHoles( List.of( UserHoles.CLIENT ) );
+            userRepository.save( newUser );
+            return;
+        }
+
+        if( newUser.getHoles().contains( UserHoles.ADMIN ) )
+        {
+            if( actualUser.getHoles().contains( UserHoles.ADMIN ) )
+            {
+                userRepository.save( newUser );
+            }
+            return;
+        }
+
+        userRepository.save( newUser );
     }
 
 }

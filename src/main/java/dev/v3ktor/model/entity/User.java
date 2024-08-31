@@ -33,6 +33,7 @@ public class User {
     public String getPassword() { return password; }
 
     public List<UserHoles> getHoles() { return holes; }
+    public void setHoles(List<UserHoles> holes) { this.holes = holes; }
 
     //Métodos
     @Override
