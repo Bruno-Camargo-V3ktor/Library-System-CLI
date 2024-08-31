@@ -3,6 +3,8 @@ package dev.v3ktor.service;
 
 import dev.v3ktor.model.repository.BookLoanRepository;
 
+import java.util.List;
+
 public class LoanService {
 
     //ATRIBUTOS
@@ -12,6 +14,5 @@ public class LoanService {
     public LoanService(BookLoanRepository loanRepository) {
         this.loanRepository = loanRepository;
     }
-
 
 }

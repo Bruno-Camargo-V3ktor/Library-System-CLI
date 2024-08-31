@@ -1,6 +1,12 @@
 package dev.v3ktor.service;
 
+import dev.v3ktor.model.entity.Author;
+import dev.v3ktor.model.entity.Book;
+import dev.v3ktor.model.entity.User;
+import dev.v3ktor.model.enums.UserHoles;
 import dev.v3ktor.model.repository.AuthorRepository;
+
+import java.util.List;
 
 public class AuthorService {
 
@@ -12,5 +18,27 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
+    //MÉTODOS
+    public List<Author> getAll()
+    {
+        return authorRepository.findAll();
+    }
+
+    public Author getAuthorByBook( Book book )
+    {
+        return authorRepository.findByBook( book );
+    }
+
+    public void updateAuthor( User actualUser, Author author )
+    {
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) return;
+        authorRepository.update(author);
+    }
+
+    public void createAuthor( User actualUser, Author author )
+    {
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) return;
+        authorRepository.save(author);
+    }
 
 }
