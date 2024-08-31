@@ -38,6 +38,11 @@ public class BookService {
         return bookRepository.findByTitle(title);
     }
 
+    public List<Book> getBooksByAuthor( Author author )
+    {
+        return bookRepository.findByAuthor(author);
+    }
+
     public void updateBook( Book book )
     {
         bookRepository.update(book);

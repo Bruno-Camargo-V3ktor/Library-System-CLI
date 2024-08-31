@@ -60,23 +60,23 @@ public class BookMemoryRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book findByAuthor(Author author)
+    public List<Book> findByAuthor(Author author)
     {
-        Book book = null;
+        List<Book> books = new ArrayList<>();
 
         try( BufferedReader reader = new BufferedReader( new FileReader( bookFile.toFile() ) ) )
         {
             var line = reader.readLine();
-            while( line != null && book == null ) {
+            while( line != null) {
                 var atr = line.split(";");
-                if( Integer.parseInt( atr[5] ) == author.getId() ) book = convertCSV( line );
+                if( Integer.parseInt( atr[5] ) == author.getId() ) books.add( convertCSV( line ) );
 
                 line = reader.readLine();
             }
         }
         catch (IOException e) { e.printStackTrace(); }
 
-        return book;
+        return books;
     }
 
     @Override

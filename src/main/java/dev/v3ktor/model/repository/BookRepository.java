@@ -13,7 +13,7 @@ public interface BookRepository {
 
     // R -> Read
     Book findById(int id);
-    Book findByAuthor(Author author);
+    List<Book> findByAuthor(Author author);
     List<Book> findByTitle(String title);
     List<Book> findAll();
 
