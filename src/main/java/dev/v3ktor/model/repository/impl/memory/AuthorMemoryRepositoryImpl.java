@@ -29,7 +29,7 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
         author.setId( list.isEmpty() ? 1 :  list.getLast().getId() + 1);
 
         try{ Files.writeString(authorFile, author.toString() + '\n', StandardOpenOption.APPEND); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
     }
 
     @Override
@@ -84,7 +84,7 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
             List<String> lines = Files.readAllLines(authorFile);
             authors = lines.stream().map((line) -> convertCSV(line)).toList();
         }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (Exception e) { throw new RuntimeException( e.getMessage() ); }
 
         return authors;
     }
@@ -101,7 +101,7 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
         List<String> lines = new ArrayList<>();
 
         try { lines = Files.readAllLines(authorFile); }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (Exception e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             var a = convertCSV( lines.get(i) );
@@ -116,7 +116,7 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
             lines.forEach( (line) -> csv.append(line).append("\n") );
             Files.writeString(authorFile, csv.toString());
         }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (Exception e) { throw new RuntimeException( e.getMessage() ); }
 
         return author;
     }
@@ -127,7 +127,7 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
         List<String> lines = new ArrayList<>();
 
         try { lines = Files.readAllLines(authorFile); }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (Exception e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             var a = convertCSV( lines.get(i) );
@@ -142,7 +142,7 @@ public class AuthorMemoryRepositoryImpl implements AuthorRepository {
             lines.forEach( (line) -> csv.append(line).append("\n") );
             Files.writeString(authorFile, csv.toString());
         }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (Exception e) { throw new RuntimeException( e.getMessage() ); }
 
     }
 

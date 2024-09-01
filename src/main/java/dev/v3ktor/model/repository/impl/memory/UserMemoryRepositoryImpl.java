@@ -29,7 +29,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         user.setId( list.isEmpty() ? 1 : list.getLast().getId() + 1 );
 
         try { Files.writeString(userFile, user.toString() + '\n', StandardOpenOption.APPEND); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
     }
 
     @Override
@@ -46,7 +46,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
                line = reader.readLine();
            }
        }
-       catch (IOException e) { e.printStackTrace(); }
+       catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
        return user;
     }
@@ -65,7 +65,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
                 line = reader.readLine();
             }
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return user;
     }
@@ -79,7 +79,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
             users = Files.readAllLines(userFile)
                     .stream().map( this::conevertCSV ).toList();
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return users;
     }
@@ -90,7 +90,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         List<String> lines = new ArrayList<>();
 
         try { lines = Files.readAllLines(userFile); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             if( conevertCSV( lines.get(i) ).getId() == user.getId() ) {
@@ -103,7 +103,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         lines.forEach( (line) -> { userString.append(line).append("\n"); });
 
         try { Files.writeString(userFile, userString.toString()); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return user;
     }
@@ -114,7 +114,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         List<String> lines = new ArrayList<>();
 
         try { lines = Files.readAllLines(userFile); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             if( conevertCSV( lines.get(i) ).equals( user ) ) {
@@ -127,7 +127,7 @@ public class UserMemoryRepositoryImpl implements UserRepository {
         lines.forEach( (line) -> { userString.append(line).append("\n"); });
 
         try { Files.writeString(userFile, userString.toString()); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
     }
 
     //Utils

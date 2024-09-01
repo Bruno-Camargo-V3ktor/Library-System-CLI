@@ -36,7 +36,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
         book.setId( list.isEmpty() ? 1 : list.getLast().getId() + 1 );
 
         try { Files.writeString(bookFile, book.toString() + '\n', StandardOpenOption.APPEND); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
     }
 
     @Override
@@ -54,7 +54,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
                 line = reader.readLine();
             }
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return book;
     }
@@ -69,12 +69,12 @@ public class BookMemoryRepositoryImpl implements BookRepository {
             var line = reader.readLine();
             while( line != null) {
                 var atr = line.split(";");
-                if( Integer.parseInt( atr[5] ) == author.getId() ) books.add( convertCSV( line ) );
+                if( Integer.parseInt( atr[5] ) == author.getId() ) books.add( convertCSV( line ) ) ;
 
                 line = reader.readLine();
             }
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return books;
     }
@@ -94,7 +94,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
                 line = reader.readLine();
             }
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return books;
     }
@@ -107,7 +107,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
             List<String> lines = Files.readAllLines(bookFile);
             books = lines.stream().map( this::convertCSV ).toList();
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return books;
     }
@@ -118,7 +118,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
         List<String> lines = new ArrayList<>();
 
         try { lines = Files.readAllLines(bookFile); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             var atr = lines.get(i).split(";");
@@ -134,7 +134,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
             lines.forEach( (line) -> csv.append( line ).append('\n') );
             Files.writeString(bookFile, csv.toString());
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
     }
 
     @Override
@@ -143,7 +143,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
         List<String> lines = new ArrayList<>();
 
         try { lines = Files.readAllLines(bookFile); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             var b = convertCSV( lines.get(i) );
@@ -158,7 +158,7 @@ public class BookMemoryRepositoryImpl implements BookRepository {
             lines.forEach( (line) -> csv.append( line ).append('\n') );
             Files.writeString(bookFile, csv.toString());
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
     }
 
     //UTILS

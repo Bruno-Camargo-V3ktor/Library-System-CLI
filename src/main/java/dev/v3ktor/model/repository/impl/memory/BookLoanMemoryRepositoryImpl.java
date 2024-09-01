@@ -39,7 +39,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
         bookLoan.setId( list.isEmpty() ? 1 : list.getLast().getId() + 1 );
 
         try { Files.writeString(bookloanFile, bookLoan.toString() + '\n', StandardOpenOption.APPEND); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
     }
 
@@ -60,7 +60,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
             }
 
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return loan;
     }
@@ -110,7 +110,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
         List<BookLoan> loans = new ArrayList<>();
 
         try { loans =  Files.readAllLines(bookloanFile).stream().map( (this::convertCSV ) ).toList(); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         return  loans;
     }
@@ -120,7 +120,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
 
         List<String> lines = new ArrayList<>();
         try { lines = Files.readAllLines(bookloanFile); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             var loan = convertCSV(lines.get(i));
@@ -135,7 +135,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
             lines.forEach( (line) -> csv.append(csv).append('\n') );
             Files.writeString(bookloanFile, csv);
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
     }
 
@@ -144,7 +144,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
 
         List<String> lines = new ArrayList<>();
         try { lines = Files.readAllLines(bookloanFile); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
         for (int i = 0; i < lines.size(); i++) {
             var loan = convertCSV(lines.get(i));
@@ -156,7 +156,7 @@ public class BookLoanMemoryRepositoryImpl implements BookLoanRepository {
             lines.forEach( (line) -> csv.append(csv).append('\n') );
             Files.writeString(bookloanFile, csv);
         }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { throw new RuntimeException( e.getMessage() ); }
 
     }
 
