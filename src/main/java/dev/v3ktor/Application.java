@@ -11,6 +11,7 @@ import dev.v3ktor.model.repository.impl.memory.BookMemoryRepositoryImpl;
 import dev.v3ktor.model.repository.impl.memory.UserMemoryRepositoryImpl;
 import dev.v3ktor.util.Props;
 import dev.v3ktor.view.ViewManager;
+import dev.v3ktor.view.screens.HomeScreen;
 import dev.v3ktor.view.screens.LoginScreen;
 
 import java.time.LocalDate;
@@ -44,8 +45,9 @@ public class Application {
         // Views -> Init
         var viewManager = new ViewManager();
 
-        //viewManager.register( "login", LoginScreen.class );
+        viewManager.register( "login", LoginScreen.class );
+        viewManager.register("home", HomeScreen.class);
 
-        //viewManager.to( "login", new Props( new String[]{"libary"}, new Object[]{libary} ) );
+        viewManager.to( "login", new Props( List.of("libary"), List.of(libary) ) );
     }
 }
