@@ -28,7 +28,9 @@ public class UserService {
     public User login( String username, String password )
     {
         var user = userRepository.findByUsername( username );
-        if( !user.getPassword().equals( String.valueOf( password.hashCode() ) ) ) throw new InvalidCredentialsException();
+        if( user == null ) throw new InvalidCredentialsException("Credenciais Inválidas");
+
+        if( !user.getPassword().equals( String.valueOf( password.hashCode() ) ) ) throw new InvalidCredentialsException("Credencias Invalidas");
 
         return user;
     }
@@ -41,6 +43,9 @@ public class UserService {
 
     public void createUser( User actualUser, User newUser )
     {
+        if( userRepository.findByUsername( newUser.getName() ) != null ) throw new InvalidCredentialsException("Usuario com esse nome ja existente");
+        if( newUser.getPassword().length() < 6 ) throw new InvalidCredentialsException("Sua senha deve possuir mais de 6 caracteres");
+
         if( actualUser == null )
         {
             newUser.setHoles( List.of( UserHoles.CLIENT ) );
