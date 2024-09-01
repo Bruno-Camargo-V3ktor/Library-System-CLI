@@ -30,11 +30,4 @@ public class Library {
         this.loanService = new LoanService( bookLoanRepository );
     }
 
-    //MÉTODOS
-
-
-
-
-
-
 }
