@@ -1,6 +1,7 @@
 package dev.v3ktor.service;
 
 
+import dev.v3ktor.exception.LoanLimitExceededException;
 import dev.v3ktor.model.entity.Book;
 import dev.v3ktor.model.entity.BookLoan;
 import dev.v3ktor.model.entity.User;
@@ -44,7 +45,7 @@ public class LoanService {
 
     public void createLoan( Book book, User user )
     {
-        if( loanRepository.findByUser(user).size() >= 5 ) return;
+        if( loanRepository.findByUser(user).size() >= 5 ) throw new LoanLimitExceededException();
         loanRepository.save( new BookLoan(null, book, user, LocalDate.now(), LoanStatus.BORROWED) );
     }
 

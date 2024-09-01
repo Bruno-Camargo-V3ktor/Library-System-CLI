@@ -1,5 +1,6 @@
 package dev.v3ktor.service;
 
+import dev.v3ktor.exception.UserNotPermissionException;
 import dev.v3ktor.model.entity.Author;
 import dev.v3ktor.model.entity.Book;
 import dev.v3ktor.model.entity.User;
@@ -31,13 +32,13 @@ public class AuthorService {
 
     public void updateAuthor( User actualUser, Author author )
     {
-        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) return;
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) throw new UserNotPermissionException("Atualizar cadastro de um Autor");
         authorRepository.update(author);
     }
 
     public void createAuthor( User actualUser, Author author )
     {
-        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) return;
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) throw new UserNotPermissionException("Criar cadastro de um Autor");;
         authorRepository.save(author);
     }
 

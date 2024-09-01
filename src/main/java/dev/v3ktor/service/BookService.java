@@ -1,7 +1,10 @@
 package dev.v3ktor.service;
 
+import dev.v3ktor.exception.UserNotPermissionException;
 import dev.v3ktor.model.entity.Author;
 import dev.v3ktor.model.entity.Book;
+import dev.v3ktor.model.entity.User;
+import dev.v3ktor.model.enums.UserHoles;
 import dev.v3ktor.model.repository.BookRepository;
 
 import java.time.LocalDate;
@@ -43,18 +46,22 @@ public class BookService {
         return bookRepository.findByAuthor(author);
     }
 
-    public void updateBook( Book book )
+    public void updateBook( User actualUser, Book book )
     {
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) throw new UserNotPermissionException("Atualizar cadastro de Livros");
         bookRepository.update(book);
     }
 
-    public void createBook( String title, Author author )
+    public void createBook( User actualUser, String title, Author author )
     {
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) throw new UserNotPermissionException("Criar cadastro de um novo Livro");
         bookRepository.save( new Book(null, title, true, LocalDate.now(), LocalDate.now(), author) );
     }
 
-    public void duplicateBook( int id )
+    public void duplicateBook( User actualUser, int id )
     {
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) ) throw new UserNotPermissionException("Duplicar o cadastro de um Livro");
+
         var book = bookRepository.findById(id);
         book.setId(null);
 

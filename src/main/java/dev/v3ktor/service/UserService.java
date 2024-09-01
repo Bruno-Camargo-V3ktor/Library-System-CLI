@@ -1,5 +1,7 @@
 package dev.v3ktor.service;
 
+import dev.v3ktor.exception.InvalidCredentialsException;
+import dev.v3ktor.exception.UserNotPermissionException;
 import dev.v3ktor.model.entity.User;
 import dev.v3ktor.model.enums.UserHoles;
 import dev.v3ktor.model.repository.UserRepository;
@@ -26,14 +28,14 @@ public class UserService {
     public User login( String username, String password )
     {
         var user = userRepository.findByUsername( username );
-        if( !user.getPassword().equals( String.valueOf( password.hashCode() ) ) ) return null;
+        if( !user.getPassword().equals( String.valueOf( password.hashCode() ) ) ) throw new InvalidCredentialsException();
 
         return user;
     }
 
     public void updateUser( User actualUser, User newUser )
     {
-        if( !Objects.equals(actualUser.getId(), newUser.getId()) ) return;
+        if( !Objects.equals(actualUser.getId(), newUser.getId()) ) throw new UserNotPermissionException("Atualizar cadastro desse usuario");
         userRepository.update( newUser );
     }
 
@@ -51,8 +53,10 @@ public class UserService {
             if( actualUser.getHoles().contains( UserHoles.ADMIN ) )
             {
                 userRepository.save( newUser );
+                return;
             }
-            return;
+
+            throw new UserNotPermissionException("Criar um usuario ADMIN");
         }
 
         userRepository.save( newUser );
