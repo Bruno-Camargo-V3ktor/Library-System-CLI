@@ -13,6 +13,7 @@ import dev.v3ktor.util.Props;
 import dev.v3ktor.view.ViewManager;
 import dev.v3ktor.view.screens.HomeScreen;
 import dev.v3ktor.view.screens.LoginScreen;
+import dev.v3ktor.view.screens.UserManageScreen;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -47,6 +48,7 @@ public class Application {
 
         viewManager.register( "login", LoginScreen.class );
         viewManager.register("home", HomeScreen.class);
+        viewManager.register("userManager", UserManageScreen.class);
 
         viewManager.to( "login", new Props( List.of("libary"), List.of(libary) ) );
     }

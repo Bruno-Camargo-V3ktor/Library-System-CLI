@@ -35,6 +35,7 @@ public class HomeScreen extends View {
                         :  "║                (ADMIN)                 ║"
                         );
 
+
         System.out.println("║           -----------------            ║");
         System.out.println("║                                        ║");
         System.out.println("║ [1] Livros [2] Emprestimos [3] Autores ║");
@@ -71,6 +72,7 @@ public class HomeScreen extends View {
                 break;
 
             case 4:
+                manager.to("userManager", props);
                 break;
 
             case 5:
