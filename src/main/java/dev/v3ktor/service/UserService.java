@@ -37,7 +37,15 @@ public class UserService {
 
     public void updateUser( User actualUser, User newUser )
     {
-        if( !Objects.equals(actualUser.getId(), newUser.getId()) ) throw new UserNotPermissionException("Atualizar cadastro desse usuario");
+        if( userRepository.findByUsername( newUser.getName() ).getId() != newUser.getId() )
+            throw new InvalidCredentialsException("Usuario com esse nome ja existente");
+
+        if( newUser.getPassword().length() < 6 )
+            throw new InvalidCredentialsException("Sua senha deve possuir mais de 6 caracteres");
+
+        if( !actualUser.getHoles().contains( UserHoles.ADMIN ) && !Objects.equals(actualUser.getId(), newUser.getId()) )
+            throw new UserNotPermissionException("Atualizar cadastro desse usuario");
+
         userRepository.update( newUser );
     }
 
