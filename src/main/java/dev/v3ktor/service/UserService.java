@@ -25,6 +25,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User getByUsername( String username )
+    {
+        return userRepository.findByUsername( username );
+    }
+
     public User login( String username, String password )
     {
         var user = userRepository.findByUsername( username );
